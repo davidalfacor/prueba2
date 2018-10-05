@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<style>
+h1 {
+  font-family:arial;
+  font-size:2em;
+  color:#333;
+}
+#info {
+  position:absolute;
+  top: 10px;
+  left: 10px;
+}
+.states {
+	
+	stroke: #fff;
+	stroke-width:1px;
+}
+
+.states:hover {
+	fill: steelblue;
+}
+
+</style>
+<body>
+<div id="info"><h1 id="name"></h1></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.6.0/d3.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/2.2.0/topojson.js"></script>
+<script>
+
+ 
+var width = 600;
+var height = 300;
+
+var svg = d3.select("body").append("svg")
+ .attr("width", width)
+ .attr("height", height);
+
+ 
+d3.json("topoj.json", function (error, us){
+  var featureCollection = topojson.feature(us, us.objects.states);
+  
+  var projection = d3.geoIdentity()
+  .reflectY(true)
+  .fitSize([600,300], featureCollection)
+  
+
+  var path = d3.geoPath().projection(projection)
+  
+  svg.append("g")
+    .attr("class", "states")
+    .selectAll("path")
+    .data(featureCollection.features)
+    .enter().append("path")
+    .attr("fill", '#E5E5E5')
+    .attr("d", path)
+	.on('mouseover', function(d){
+			var name = d.properties.NOMBRE99;
+			return document.getElementById('name').innerHTML=name;
+		});
+  
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "pruebamapa",
+  "version": "1.0.0",
+  "description": "prueba topojson con 3d.js",
+  "main": "index.js",
+  "scripts": {
+     "start": "electron index.js"
+  },
+  "author": "david",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-prebuilt": "^1.4.13"
+  }
+}
